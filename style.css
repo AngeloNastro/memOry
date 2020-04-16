@@ -1,0 +1,175 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:300|Roboto:100i,400&display=swap");
+
+* {
+    box-sizing: border-box;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Opera and Firefox */
+}
+
+html {
+    min-height: 100vh;
+    cursor: url("cursor/cursor.cur"), auto;
+}
+
+body {
+    margin: 0;
+    background: radial-gradient(#FAC05E, #F79D84);
+}
+
+.title{
+    color: #EE6352;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5em;
+    text-align: center;
+}
+
+.overlay-text{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5em;
+}
+
+.overlay-text-small{
+    font-size: .3em;
+}
+
+.overlay-text.visible{
+    display: flex;
+    flex-direction: column;
+    animation: overlay-grow 1000ms forwards;
+}
+
+@keyframes overlay-grow {
+    from {
+        background-color: rgba(0, 0, 0, 0);
+        font-size: 0;
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0.8);
+        font-size: 4em;
+    }
+}
+
+.infoContainer{
+    color: #3FA7D6;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 1.5em;
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+}
+
+.time, .flips {
+    color: #59CD90;
+}
+
+.gameContainer {
+    display: grid;
+    grid-template-columns: repeat(4,auto);
+    grid-gap: 10px;
+    margin: 50px;
+    justify-content: center;
+    perspective: 1000px;
+}
+
+.card {
+    position: relative;
+    height: 175px;
+    width: 125px;
+    border-radius: 25px;
+}
+
+.card-face{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backface-visibility: hidden;
+    border-radius: 25px;
+    border: 3px solid black;
+    transition: transform 500ms ease-in-out;
+}
+
+.card-back{
+    background-color: lightgrey;
+}
+
+.card.visible .card-back{
+    transform: rotateY(-180deg);
+}
+
+.card.visible .card-front{
+    transform: rotateY(0deg);
+}
+
+.card.matched .card-value{
+    animation: dance 1s linear infinite 500ms;
+}
+
+@keyframes dance {
+    0%, 100% {
+        transform: rotate(0);
+    }
+    25% {
+        transform: rotate(-10deg);
+    }
+    75% {
+        transform: rotate(10deg);
+    }
+}
+
+.card-front {
+    transform: rotateY(180deg);
+    background-color: cornsilk;
+}
+
+.card-value{
+    margin-top: 25px;
+    transform: scale(0.9);
+    transition: transform 100ms ease-in-out;
+}
+
+.card-front:hover .card-value{
+    transform: scale(1);
+}
+
+.brain{
+    width: 120px;
+    transform: scale(1);
+    transition: transform 100ms ease-in-out;
+}
+
+.card-back:hover .brain{
+    transform: scale(1.1);
+}
+
+@media (max-width: 600px){
+    .gameContainer{
+        grid-template-columns: repeat(2,auto);
+    }
+
+    .infoContainer{
+        flex-direction: column;
+        align-items: center;
+    }
+}
